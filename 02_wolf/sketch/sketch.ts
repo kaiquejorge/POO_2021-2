@@ -25,8 +25,6 @@ function keyPressed(){
 
 function setup() {
     createCanvas(400, 400);
-    loadImage('../sketch/lobol.png')
-    image(wolf_img, 0, 0);
 }
 
 function draw(){
