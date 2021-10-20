@@ -11,14 +11,14 @@ function preload() {
     );
 }
 
-function keyPressed(){
+function keyPressed() {
     if (keyCode === LEFT_ARROW) {
         x--;
     } else if (keyCode === RIGHT_ARROW) {
         x++;
-    } else if (keyCode) === UP_ARROW) {
+    } else if (keyCode === UP_ARROW) {
         y--;
-    } else if (keyCode) === DOWN_ARROW) {
+    } else if (keyCode === DOWN_ARROW) {
         y++;
     }
 }
