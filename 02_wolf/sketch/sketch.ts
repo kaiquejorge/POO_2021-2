@@ -16,15 +16,27 @@ class WolfGang {
 
 }
 
-let x: number = 1;
-let y: number = 2;
-let step: number = 100;
 let wolf_img: p5.Image;
+let rabbit_img: p5.Image;
 let wolf: WolfGang;
+let rabbit: WolfGang;
+
+function loadImg(path: string): p5.Image {
+    return loadImage(
+        path,
+        () => console.log("Loading" + path + " ok") ,
+        () => console.log("Loading " + path + " error")
+    );
+}
 
 function preload() {
     wolf_img = loadImage(
         '../sketch/lobol.png',
+        () => console.log("Sucesso"),
+        () => console.log("Falhou")
+    );
+    rabbit_img = loadImage(
+        '../sketch/coelho.png',
         () => console.log("Sucesso"),
         () => console.log("Falhou")
     );
@@ -40,15 +52,26 @@ function keyPressed() {
     } else if (keyCode === DOWN_ARROW) {
        wolf.y++;
     }
+    if (keyCode === "A" .charCodeAt(0)) {
+        rabbit.x--;
+    } else if (keyCode === "D" .charCodeAt(0)) {
+        rabbit.x++;
+    } else if (keyCode === "W" .charCodeAt(0)) {
+        rabbit.y--;
+    } else if (keyCode === "S" .charCodeAt(0)) {
+        rabbit.y++;
+    }
+
 }
 
 function setup() {
     createCanvas(400, 400);
     wolf = new WolfGang(2, 2, 100, wolf_img);
+    rabbit = new WolfGang(1, 1, 100, rabbit_img);
 }
 
 function draw(){
-    background(100);
+    background(0);
     wolf.draw();
-    image(wolf_img, x * step, y * step, step, step);
+    rabbit.draw();
 }
