@@ -18,24 +18,24 @@ class Bubble {
     }
 
     draw(): void {
-        fill(255); // preenchimento
+        fill(color(0, 0, 255)); // preenchimento
         stroke(255); // borda
         circle(this.x, this.y, 2 * Bubble.radius); // desenho do raio
-        fill(0); //cor da fonte
+        fill(255, 204, 0); //cor da fonte
         stroke(0); // borda da fonte
-        textSize(15); // tam da fonte
+        textSize(20); // tam da fonte
         text(this.letter, this.x - 5, this.y + 5); // desenhando a letra no centro
     }
 }
 
 class Board {
     bubbles: Bubble[];
-    timeout: number = 30; // a cada 30 quadros eu vou ter uma nova bolha por segundo
+    timeout: number = 40; // a cada 30 quadros eu vou ter uma nova bolha por segundo
     timer: number = 0;
-    acertos = 0;
-    erros = 0;
+    hits = 0;
+    mistakes = 0;
     constructor() {
-        this.bubbles = [new Bubble(100, 100, "a", 1)];
+        this.bubbles = [new Bubble(100, 100, "a", 2)];
         this.bubbles.push(new Bubble(200, 100, "b", 2));
         this.bubbles.push(new Bubble(300, 100, "c", 3));
     }
@@ -54,9 +54,9 @@ class Board {
 
     removeByHit(code: number): void {
         for(let bubble of this.bubbles){
-            if(bubble.letter[0].toUpperCase().charCodeAt(0) == code) {
+            if(bubble.letter[0].toUpperCase().charCodeAt(0) == code){
                 bubble.alive = false;
-                this.acertos++;
+                this.hits++;
                 break;
             }
         }
@@ -76,7 +76,7 @@ class Board {
         for(let bubble of this.bubbles)
             if (bubble.y + 2 * Bubble.radius >= height) {
                 bubble.alive = false;
-                this.erros++;
+                this.mistakes++;
             }
         
     }
@@ -93,9 +93,9 @@ class Board {
 
     draw(): void {
         stroke("white");
-        fill("white");
-        textSize(30);
-        text(" Acertos: "  + this.acertos +  " Erros: " + this.erros , 30, 30);
+        fill("blue");
+        textSize(20);
+        text(" Hits: "  + this.hits +  "\n Mistakes: "  + this.mistakes, 275, 30);
         for (let bubble of this.bubbles)
             bubble.draw();
     }
@@ -111,12 +111,14 @@ class Game {
     }
     gamePlay(): void {
         this.board.update();
-        background(10, 100, 50);
+        background(255, 204, 0);
         this.board.draw();
+        if(this.board.mistakes >= 5)
+            this.activeState = this.gameOver;
     }
     
-    gameOver(): void{
-        background(255, 0, 0);
+    gameOver(): void {
+        background('rgb(100%,0%,10%)');
         fill(0)
         textSize(100);
         text("Game Over!", 50, 300);
