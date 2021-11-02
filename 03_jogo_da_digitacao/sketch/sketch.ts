@@ -32,10 +32,12 @@ class Board {
     bubbles: Bubble[];
     timeout: number = 30; // a cada 30 quadros eu vou ter uma nova bolha por segundo
     timer: number = 0;
+    acertos = 0;
+    erros = 0;
     constructor() {
         this.bubbles = [new Bubble(100, 100, "a", 1)];
-        this.bubbles.push(new Bubble(200, 100, "b", 3));
-        this.bubbles.push(new Bubble(300, 100, "c", 4));
+        this.bubbles.push(new Bubble(200, 100, "b", 2));
+        this.bubbles.push(new Bubble(300, 100, "c", 3));
     }
 
     update() : void { // para cada bolha do vetor de bolhas call uptade
@@ -43,6 +45,22 @@ class Board {
 
         for (let bubble of this.bubbles)
             bubble.update(); 
+        this.removeDeadBubbles();
+    }
+
+    removeDeadBubbles(): void {
+        this.bubbles = this.bubbles.filter(b => b.alive);
+    }
+
+    removeByHit(code: number): void {
+        for(let bubble of this.bubbles){
+            if(bubble.letter[0].toUpperCase().charCodeAt(0) == code) {
+                bubble.alive = false;
+                this.acertos++;
+                break;
+            }
+        }
+
     }
 
     checkBubbleTime() : void{ //verificar o tempo da bolha, ele vai ficar diminuindo o timer em um
@@ -56,6 +74,11 @@ class Board {
 
     markOutsideBubbles(): void {
         for(let bubble of this.bubbles)
+            if (bubble.y + 2 * Bubble.radius >= height) {
+                bubble.alive = false;
+                this.erros++;
+            }
+        
     }
 
     addBubble(): void{ // definir o x, y, letra e velocidade
@@ -69,6 +92,10 @@ class Board {
     }
 
     draw(): void {
+        stroke("white");
+        fill("white");
+        textSize(30);
+        text(" Acertos: "  + this.acertos +  " Erros: " + this.erros , 30, 30);
         for (let bubble of this.bubbles)
             bubble.draw();
     }
@@ -102,6 +129,11 @@ function setup() {
     createCanvas(800, 600);
     frameRate(30); //30 vezes q a fun update vai ser chamada por segundo
     game = new Game();
+}
+
+function keyPressed() {
+    game.board.removeByHit(keyCode);
+
 }
 
 function draw() {
