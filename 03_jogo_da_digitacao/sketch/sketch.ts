@@ -34,6 +34,7 @@ class Board {
     timer: number = 0;
     hits = 0;
     mistakes = 0;
+
     constructor() {
         this.bubbles = [new Bubble(100, 100, "a", 2)];
         this.bubbles.push(new Bubble(200, 100, "b", 2));
@@ -42,6 +43,7 @@ class Board {
 
     update() : void { // para cada bolha do vetor de bolhas call uptade
         this.checkBubbleTime();
+        this.markOutsideBubbles();
 
         for (let bubble of this.bubbles)
             bubble.update(); 
@@ -73,12 +75,12 @@ class Board {
     }
 
     markOutsideBubbles(): void {
-        for(let bubble of this.bubbles)
+        for(let bubble of this.bubbles){
             if (bubble.y + 2 * Bubble.radius >= height) {
                 bubble.alive = false;
                 this.mistakes++;
             }
-        
+        }
     }
 
     addBubble(): void{ // definir o x, y, letra e velocidade
