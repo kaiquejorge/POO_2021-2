@@ -13,10 +13,32 @@ class Person {
 class Motoka{
     person: Person | null; // a barra pode dizer que sao duas possibilidades de tipo para a variavel
     potencia: number;
+    tempo: number;
 
-    constructor(potencia: number){
+    constructor(potencia: number){ // construtor não tem return
         this.potencia = potencia;
         this.person = null;
+    }
+
+    comprarTempo(qtd: number): void{
+        this.tempo =+ qtd;
+    }
+    
+    dirigir(tempo: number):  boolean {
+        if (this.person == null){
+            console.log("Motoka vazia");
+            return false;
+        }
+        if (this.person.idade > 10) {
+            console.log("criança muito grande pra dirigir");
+            return false;
+        }
+        if (this.tempo < tempo) { //se o tempo q ele tem for menor que o tempo q ele quer dirigir, diga q o tempo é insuficiente
+            console.log("tempo insuficiente");
+            return false;
+        }
+        this.tempo -= tempo;
+        return true;
     }
 
     buzinar(): string {
