@@ -19,12 +19,11 @@ class Motoka{
         this.person = null;
     }
 
-    buzinar(): string{
+    buzinar(): string {
         let saida = "P";
-        for(let i = 0; i < this.potencia; i++){
+        for(let i = 0; i < this.potencia; i++)
             saida += "e";
         return saida + "m";
-        }
     }
 
     montar(person: Person): boolean{
@@ -54,3 +53,16 @@ class Motoka{
     }
 }
 
+let motoka = new Motoka(10);
+console.log(motoka.buzinar());
+motoka.montar(new Person("João", 1));
+motoka.desmontar();
+
+let joao: Person | null = motoka.desmontar();
+console.log("" + joao);
+
+if(motoka.montar(new Person("Maria", 25))){
+    console.log("Maria montou na motinha");
+}
+else
+    console.log("Maria não montou na motinha");
