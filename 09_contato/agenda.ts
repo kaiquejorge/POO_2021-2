@@ -90,10 +90,14 @@ class Contato { // constructor do contato
     }
 
     public toString(): string {
-        return `${this.nome}- ${this.fones.join(",")}`;
+        return `${this.nome} - ${this.fones.join(",")}`; // vai printar o nome e o telefone ao lado
     }
 }
 
 let cell = [new Fone("Trabalho", "55(85)999141520")];
 let kaique = new Contato("Kaique", cell);
 console.log(kaique.toString())
+
+let fone = [new Fone("Casa", "55(85)34125656")];
+let mae = new Contato("Mãe", fone);
+console.log(mae.toString())
