@@ -15,7 +15,7 @@ class Pet {
   private hungryMax: number;
 
 	constructor(nome: string, energy: number, hungry: number, clean: number){
-	this.setNome(nome)
+	  this.setNome(nome)
     this.setEnergy(energy)
     this.setHungry(hungry)
     this.setClean(clean)
